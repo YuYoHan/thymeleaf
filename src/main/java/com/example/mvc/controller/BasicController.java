@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/basic")
+@RequestMapping("/api/v1/basic")
 public class BasicController {
     @GetMapping("/text-basic")
     public String basic(Model model) {
