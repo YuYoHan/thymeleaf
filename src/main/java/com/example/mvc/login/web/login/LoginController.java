@@ -41,4 +41,18 @@ public class LoginController {
         response.addCookie(idCookie);
         return "redirect:/";
     }
+
+    @PostMapping("/logout")
+    public String logOut(HttpServletResponse response) {
+        expireCookie(response, "memberId");
+        return "redirect:/";
+    }
+
+    // 쿠키 설정한 것을 로그아웃하려면 시간을 0으로 하면 된다.
+    private static void expireCookie(HttpServletResponse response,
+                                     String cookieName) {
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
 }
