@@ -31,6 +31,7 @@ public class LogFilter implements Filter {
 
         try {
             log.info("REQUEST [{}][{}]", uuid, requestURI);
+            // 다음 필터가 있으면 필터를 호출하고 없으면 서블릿을 호출한다.
             chain.doFilter(request, response);
         } catch (Exception e) {
             log.error("실팰했습니다. [{}]", e.getMessage());
