@@ -2,6 +2,7 @@ package com.example.mvc.login.web;
 
 import com.example.mvc.login.domain.member.Member;
 import com.example.mvc.login.domain.member.MemberRepository;
+import com.example.mvc.login.web.argumentResolver.Login;
 import com.example.mvc.login.web.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -80,8 +81,21 @@ public class HomeController {
         return "loginHome";
     }
 
-    @GetMapping("/")
+//    @GetMapping("/")
     public String homeLoginV3Spring(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
+                                    Model model) {
+
+        // 세션에 회원 데이터가 없으면 home
+        if(loginMember == null) {
+            return "home";
+        }
+        // 세션이 있으면 진행
+        model.addAttribute("member", loginMember);
+        return "loginHome";
+    }
+
+    @GetMapping("/")
+    public String homeLoginV3ArgumentResolver(@Login Member loginMember,
                                     Model model) {
 
         // 세션에 회원 데이터가 없으면 home
