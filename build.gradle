@@ -29,7 +29,10 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // H2 데이터베이스추가
     runtimeOnly 'com.h2database:h2'
+    // JdbcTemplate 추가
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 //    implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '3.0.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'

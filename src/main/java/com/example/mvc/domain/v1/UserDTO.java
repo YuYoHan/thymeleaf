@@ -1,4 +1,4 @@
-package com.example.mvc.domain;
+package com.example.mvc.domain.v1;
 
 import lombok.*;
 
