@@ -4,12 +4,16 @@ import com.example.mvc.domain.v1.ItemSearchCond;
 import com.example.mvc.domain.v1.ItemUpdateDTO;
 import com.example.mvc.domain.v1.ItemV1;
 import com.example.mvc.repository.item.v1.ItemRepositoryV1;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 // JdbcTemplate
@@ -51,11 +55,54 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepositoryV1 {
 
     @Override
     public Optional<ItemV1> findById(Long id) {
-        return Optional.empty();
+        String sql = "select id, item_name, price, quantity from item where id = ?";
+        try {
+            ItemV1 itemV1 = template.queryForObject(sql, itemRowMapper(), id);
+            return Optional.of(itemV1);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
-    @Override
     public List<ItemV1> findAll(ItemSearchCond cond) {
-        return List.of();
+        String itemName = cond.getItemName();
+        Integer maxPrice = cond.getMaxPrice();
+
+        String sql = "select id, item_name, price, quantity from item";
+        //동적 쿼리
+        if (StringUtils.hasText(itemName) || maxPrice != null) {
+            sql += " where";
+        }
+
+        boolean andFlag = false;
+        List<Object> param = new ArrayList<>();
+        if (StringUtils.hasText(itemName)) {
+            sql += " item_name like concat('%',?,'%')";
+            param.add(itemName);
+            andFlag = true;
+        }
+
+        if (maxPrice != null) {
+            if (andFlag) {
+                sql += " and";
+            }
+            sql += " price <= ?";
+            param.add(maxPrice);
+        }
+
+        return template.query(sql, itemRowMapper(), param.toArray());
+    }
+
+
+
+    private RowMapper<ItemV1> itemRowMapper() {
+        return ((rs, rowNum) -> {
+            return ItemV1.builder()
+                    .id(rs.getLong("id"))
+                    .itemName(rs.getString("item_name"))
+                    .price(rs.getInt("price"))
+                    .quantity(rs.getInt("quantity"))
+                    .build();
+        });
     }
 }
