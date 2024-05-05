@@ -2,8 +2,8 @@ package com.example.mvc.config;
 
 import com.example.mvc.repository.item.v1.ItemRepositoryV1;
 import com.example.mvc.repository.item.v1.memory.MemoryItemRepository;
-import com.example.mvc.service.ItemServiceImplV1;
-import com.example.mvc.service.ItemServiceV1;
+import com.example.mvc.service.v1.ItemServiceImplV1;
+import com.example.mvc.service.v1.ItemServiceV1;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

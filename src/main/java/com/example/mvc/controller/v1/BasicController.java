@@ -1,4 +1,4 @@
-package com.example.mvc.controller;
+package com.example.mvc.controller.v1;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
