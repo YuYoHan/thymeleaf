@@ -61,4 +61,16 @@ class ItemRepositoryV3Test {
         }
     }
 
+    @Test
+    @DisplayName("가격 LessThan 테스트")
+    void findByPriceLessThanTest() {
+        this.createItemList();
+        List<ItemEntityV3> itemList =
+                itemRepositoryV3.findByPriceLessThan(10005);
+
+        for (ItemEntityV3 item : itemList) {
+            log.info(item);
+        }
+    }
+
 }
