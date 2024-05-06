@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ItemRepositoryV3 extends JpaRepository<ItemEntityV3, Long> {
     List<ItemEntityV3> findByItemName(String itemName);
+    List<ItemEntityV3> findByItemNameOrItemDetail(String itemName, String itemDetail);
 }
