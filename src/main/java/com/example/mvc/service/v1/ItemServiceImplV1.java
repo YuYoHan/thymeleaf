@@ -1,4 +1,4 @@
-package com.example.mvc.service;
+package com.example.mvc.service.v1;
 
 import com.example.mvc.domain.v1.ItemSearchCond;
 import com.example.mvc.domain.v1.ItemUpdateDTO;
