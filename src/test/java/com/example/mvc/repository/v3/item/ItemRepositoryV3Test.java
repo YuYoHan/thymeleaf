@@ -73,4 +73,16 @@ class ItemRepositoryV3Test {
         }
     }
 
+    @Test
+    @DisplayName("가격 내림차순 조회 테스트")
+    void findBiyPriceLessThanOrderByPriceDesc() {
+        this.createItemList();
+        List<ItemEntityV3> itemList =
+                itemRepositoryV3.findByPriceLessThanOrderByPriceDesc(10005);
+
+        for (ItemEntityV3 item : itemList) {
+            log.info(item);
+        }
+    }
+
 }
