@@ -85,4 +85,16 @@ class ItemRepositoryV3Test {
         }
     }
 
+    @Test
+    @DisplayName("@Query를 이용한 상품 조회 테스트")
+    void findByItemDetailTest() {
+        this.createItemList();
+        List<ItemEntityV3> itemList =
+                itemRepositoryV3.findByItemDetail("테스트 상품 상세 설명");
+
+        for (ItemEntityV3 item : itemList) {
+            log.info(item);
+        }
+    }
+
 }
