@@ -5,9 +5,7 @@ import com.example.mvc.service.v2.ItemServiceV2;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -21,7 +19,12 @@ public class ItemControllerV2 {
 
     @PostMapping("/items")
     public ResponseEntity<?> saveItem(@RequestPart RequestItemDTOV2 item,
-                                      List<MultipartFile> images) throws IOException {
+                                      @RequestPart(required = false) List<MultipartFile> images) throws IOException {
         return itemService.addItem(item, images);
+    }
+
+    @GetMapping("/items/{itemId}")
+    public ResponseEntity<?> search(@PathVariable Long itemId) {
+        return itemService.searchItem(itemId);
     }
 }

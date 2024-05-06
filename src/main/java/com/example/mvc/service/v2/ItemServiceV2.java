@@ -50,6 +50,7 @@ public class ItemServiceV2 {
         return ResponseEntity.ok().body(responseItem);
     }
 
+    @Transactional(readOnly = true)
     public ResponseEntity<?> searchItem(Long id) {
         ItemEntityV2 findItem = itemRepository.findById(id)
                 .orElseThrow();
