@@ -16,15 +16,20 @@ public class ItemEntityV2 {
     @Column(name = "item_id")
     private Long id;
     private String itemName;
+    private String itemDetail;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UploadFileEntityV2> images = new ArrayList<>();
 
     @Builder
-    public ItemEntityV2(Long id, String itemName, List<UploadFileEntityV2> images) {
+    public ItemEntityV2(Long id,
+                        String itemName,
+                        List<UploadFileEntityV2> images,
+                        String itemDetail) {
         this.id = id;
         this.itemName = itemName;
         this.images = images;
+        this.itemDetail = itemDetail;
     }
 
 }

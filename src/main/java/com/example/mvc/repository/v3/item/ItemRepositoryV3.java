@@ -17,4 +17,8 @@ public interface ItemRepositoryV3 extends JpaRepository<ItemEntityV3, Long> {
     @Query("select i from item_v3 i where i.itemDetail like " +
             "%:itemDetail% order by i.price desc ")
     List<ItemEntityV3> findByItemDetail(@Param("itemDetail") String itemDetail);
+
+    @Query(value = "select i from item_v3 i where i.itemDetail " +
+            "like %:itemDetail% order by i.price desc")
+    List<ItemEntityV3> findByItemDetailByNative(@Param("itemDetail") String itemDetail);
 }
