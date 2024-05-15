@@ -49,7 +49,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepositoryV1 {
         template.update(sql,
                 updateParam.getItemName(),
                 updateParam.getPrice(),
-                updateParam.getQuantity(),
+                updateParam.getStockNumber(),
                 itemId);
     }
 

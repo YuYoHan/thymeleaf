@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "=//mybaits.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mybatis mapper을 관리하기 편하려면 패키지 위치를 main과 resources를 일치시켜야 한다.-->
+<mapper namespace="com.example.mvc.repository.mybatis.ItemMapper">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into item_v3 (item_name, price, stock_number, item_detail, item_sell_status)
+        values (#{itemName}, #{price}, #{stockNumber}, #{itemDetail}, #{itemSellStatus})
+    </insert>
+    <update id="update">
+        update item_v3
+        set item_name = #{updateParam.itemName},
+            price = #{updateParam.price},
+            stock_number = #{updateParam.stockNumber},
+            item_detail = #{updateParam.itemDetail},
+            item_sell_status =#{updateParam.itemSellStatus}
+        where id = #{id}
+    </update>
+    <select id="findById" resultType="ItemEntityV3">
+        select id, item_name, price, stock_number, item_detail, item_sell_status
+        from item_v3
+        where id = #{id}
+    </select>
+    <select id="findAll" resultType="ItemEntityV3">
+        select * from item_v3
+        <where>
+            <if test="itemName != null and itemName != ''">
+                and item_name like concat('%', #{itemName}, '%')
+            </if>
+            <if test="maxPrice != null">
+                and price &lt;= #{maxPrcie}
+            </if>
+        </where>
+    </select>
+</mapper>

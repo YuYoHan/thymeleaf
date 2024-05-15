@@ -23,7 +23,7 @@ public class ItemV1 {
     public void update(ItemUpdateDTO item) {
         this.itemName = item.getItemName();
         this.price = item.getPrice();
-        this.quantity = item.getQuantity();
+        this.quantity = item.getStockNumber();
     }
 
     public void addId(Long add) {
