@@ -50,4 +50,21 @@ public class ThymeleafController {
         return "thymeleaf/ex02";
     }
 
+    @GetMapping("/ex03")
+    public String ex03(Model model) {
+        List<ItemDTOV3> itemDTOV3s = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            ItemDTOV3 build = ItemDTOV3.builder()
+                    .itemDetail("상품 상세 설명" + i)
+                    .itemName("테스트 상품" + i)
+                    .price(1000 * i)
+                    .regTime(LocalDateTime.now())
+                    .build();
+            itemDTOV3s.add(build);
+
+        }
+        model.addAttribute("itemDTOV3", itemDTOV3s);
+        return "thymeleaf/ex03";
+    }
+
 }
